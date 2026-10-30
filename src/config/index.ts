@@ -3,7 +3,7 @@ import { mainnet, arbitrum } from '@reown/appkit/networks'
 import type { AppKitNetwork } from '@reown/appkit/networks'
 
 // Get projectId from https://dashboard.reown.com
-export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "b56e18d47c72ab683b10814fe9495694" // this is a public projectId only to use on localhost
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "c3d4e1ef062d513d36a03af2ef142c78"
 
 if (!projectId) {
   throw new Error('Project ID is not defined')

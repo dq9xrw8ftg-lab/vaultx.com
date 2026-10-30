@@ -13,11 +13,6 @@ export default function Home() {
 
       <ConnectButton />
       <ActionButtonList />
-      <div className="advice">
-        <p>
-          This projectId only works on localhost. <br/>Go to <a href="https://dashboard.reown.com" target="_blank" className="link-button" rel="Reown Dashboard">Reown Dashboard</a> to get your own.
-        </p>
-      </div>
       <InfoList />
     </div>
   );
