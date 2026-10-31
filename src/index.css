@@ -1,289 +1,600 @@
-import { useAppKit, useAppKitAccount } from '@reown/appkit/react'
-import { useMemo, useState } from 'react'
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #edf4ff;
+  background: #07111f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-const stats = [
-  { label: 'TVL', value: '$2.8B' },
-  { label: 'Active Vaults', value: '42,180' },
-  { label: 'Avg. APY', value: '12.4%' },
-  { label: 'Security Score', value: '98.7' }
-]
+* {
+  box-sizing: border-box;
+}
 
-const marketCards = [
-  {
-    title: 'Stable Yield',
-    apy: '9.4%',
-    risk: 'Low',
-    description: 'Conservative vault strategy powered by stablecoin lending and treasury flows.'
-  },
-  {
-    title: 'DeFi Momentum',
-    apy: '14.8%',
-    risk: 'Medium',
-    description: 'Dynamic vault rotation across liquid staking and lending protocols.'
-  },
-  {
-    title: 'AI Strategy',
-    apy: '18.6%',
-    risk: 'High',
-    description: 'Adaptive yield optimization for higher-conviction protocol exposure.'
+html {
+  scroll-behavior: smooth;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100%;
+  min-height: 100vh;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(95, 124, 255, 0.24), transparent 26%),
+    linear-gradient(180deg, #07111f 0%, #0b1728 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.page-shell {
+  width: min(1200px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 26px 0 72px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 20px;
+  border: 1px solid rgba(148, 167, 255, 0.18);
+  border-radius: 18px;
+  background: rgba(9, 17, 31, 0.72);
+  backdrop-filter: blur(18px);
+  position: sticky;
+  top: 18px;
+  z-index: 10;
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #6ab8ff 0%, #6077ff 100%);
+  color: white;
+  font-weight: 900;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav button,
+.ghost-button,
+.secondary-button,
+.link-button {
+  background: transparent;
+  border: 1px solid rgba(162, 181, 255, 0.24);
+  color: #e3eeff;
+  border-radius: 999px;
+  padding: 0.72rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.nav button:hover,
+.ghost-button:hover,
+.secondary-button:hover,
+.link-button:hover {
+  border-color: rgba(162, 181, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.primary-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.9rem 1.4rem;
+  background: linear-gradient(135deg, #57a9ff 0%, #5d77ff 100%);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 10px 26px rgba(81, 113, 255, 0.35);
+  transition: all 0.2s ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(81, 113, 255, 0.42);
+}
+
+main {
+  margin-top: 30px;
+}
+
+.hero-card,
+.section-block,
+.stat-item,
+.market-card,
+.plan-card,
+.calculator-panel,
+.security-panel,
+.metric-panel {
+  border: 1px solid rgba(153, 175, 255, 0.18);
+  background: rgba(10, 18, 31, 0.72);
+  box-shadow: 0 22px 70px rgba(6, 12, 22, 0.4);
+}
+
+.hero-card {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 28px;
+  padding: 36px;
+  border-radius: 28px;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: #8ec9ff;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.7rem, 5vw, 4.8rem);
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.subtitle {
+  margin: 18px 0 0;
+  max-width: 640px;
+  color: rgba(228, 236, 255, 0.8);
+  font-size: 1.06rem;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.wallet-box {
+  margin-top: 24px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  width: fit-content;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: rgba(15, 23, 37, 0.9);
+  border: 1px solid rgba(129, 175, 255, 0.25);
+}
+
+.wallet-box span {
+  color: #9ec8f4;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.wallet-box strong {
+  font-size: 0.96rem;
+  word-break: break-all;
+}
+
+.hero-panel {
+  display: grid;
+  gap: 18px;
+  align-content: center;
+}
+
+.mini-card {
+  padding: 22px 18px;
+  border-radius: 20px;
+  background: rgba(13, 22, 38, 0.9);
+  border: 1px solid rgba(149, 174, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mini-card.success-card {
+  background: linear-gradient(180deg, rgba(14, 33, 46, 0.96), rgba(11, 22, 36, 0.96));
+}
+
+.mini-card span,
+.performance-ring span,
+.metric-panel span,
+.stat-item span,
+.calculator-header span,
+.yield-row span {
+  color: #a2b9dc;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mini-card strong,
+.performance-ring strong,
+.stat-item strong,
+.metric-panel strong,
+.yield-row strong {
+  font-size: clamp(1.3rem, 2vw, 2.1rem);
+  line-height: 1.08;
+}
+
+.mini-card small {
+  color: #a9d0ff;
+}
+
+.performance-ring {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(#66b7ff 0 91%, rgba(255,255,255,0.08) 91% 100%);
+  padding: 18px;
+}
+
+.ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 18, 31, 0.96);
+  text-align: center;
+}
+
+.ring-inner strong {
+  display: block;
+  font-size: 1.9rem;
+}
+
+.ring-inner span {
+  display: block;
+  margin-top: 4px;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.stat-item {
+  padding: 22px 18px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-block {
+  margin-top: 32px;
+  padding: 28px 24px;
+  border-radius: 24px;
+}
+
+.section-header {
+  margin-bottom: 22px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  letter-spacing: -0.04em;
+}
+
+.market-grid,
+.plan-grid,
+.security-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.market-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.market-card {
+  border-radius: 20px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  color: #98f2d1;
+  background: rgba(46, 126, 93, 0.18);
+  border: 1px solid rgba(110, 221, 170, 0.24);
+  border-radius: 999px;
+  padding: 0.38rem 0.66rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.market-card h3,
+.calculator-header h3 {
+  margin: 0;
+  font-size: 1.55rem;
+}
+
+.market-card p {
+  margin: 0;
+  color: rgba(225, 233, 255, 0.7);
+}
+
+.link-button {
+  width: fit-content;
+  margin-top: auto;
+}
+
+.plan-layout {
+  display: grid;
+  gap: 20px;
+}
+
+.plan-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.plan-card {
+  padding: 22px 18px;
+  border-radius: 18px;
+  text-align: left;
+  color: #edf5ff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.plan-card.active {
+  border-color: rgba(120, 157, 255, 0.75);
+  background: linear-gradient(180deg, rgba(19, 31, 52, 0.98), rgba(11, 22, 38, 0.96));
+}
+
+.plan-card .plan-name,
+.plan-card small,
+.plan-card em {
+  color: rgba(225, 233, 255, 0.82);
+}
+
+.plan-card strong {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.calculator-panel {
+  border-radius: 20px;
+  padding: 26px 22px;
+}
+
+.calculator-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.calculator-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.calculator-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #e4edff;
+  font-weight: 600;
+}
+
+.calculator-form input,
+.calculator-form select {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid rgba(147, 171, 255, 0.24);
+  padding: 0.85rem 1rem;
+  background: rgba(10, 19, 31, 0.96);
+  color: #edf5ff;
+}
+
+.yield-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 24px;
+  border-top: 1px solid rgba(147, 171, 255, 0.14);
+  padding-top: 24px;
+}
+
+.yield-row strong {
+  display: block;
+  margin-top: 6px;
+}
+
+.status-line {
+  margin: 18px 0 0;
+  color: #b7dfff;
+}
+
+.security-grid {
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.security-panel,
+.metric-panel {
+  border-radius: 20px;
+  padding: 22px 20px;
+}
+
+.security-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.security-panel li {
+  position: relative;
+  padding-left: 24px;
+  color: rgba(229, 236, 255, 0.86);
+}
+
+.security-panel li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #7ce0b0;
+  font-weight: 800;
+}
+
+.metric-panel {
+  display: grid;
+  gap: 18px;
+  align-content: center;
+}
+
+.metric-panel > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 16px;
+  border-radius: 14px;
+  background: rgba(12, 23, 37, 0.96);
+}
+
+@media (max-width: 900px) {
+  .topbar,
+  .header-actions,
+  .hero-card,
+  .security-grid,
+  .yield-row,
+  .calculator-form {
+    display: grid;
+    grid-template-columns: 1fr;
   }
-]
 
-const plans = [
-  { id: 'vault-lite', name: 'Vault Lite', apy: 8.2, min: 100, duration: '7 days' },
-  { id: 'vault-plus', name: 'Vault Plus', apy: 12.4, min: 500, duration: '30 days' },
-  { id: 'vault-pro', name: 'Vault Pro', apy: 17.9, min: 1500, duration: '90 days' }
-]
-
-const features = [
-  'Institutional-grade risk controls',
-  'Real-time analytics and treasury tracking',
-  'Multi-chain wallet connectivity',
-  'Transparent APY and performance reporting'
-]
-
-const formatAddress = (address: string) => `${address.slice(0, 6)}...${address.slice(-4)}`
-
-export default function App() {
-  const { open } = useAppKit()
-  const { address, isConnected } = useAppKitAccount()
-  const [selectedPlan, setSelectedPlan] = useState('vault-plus')
-  const [amount, setAmount] = useState('2500')
-  const [days, setDays] = useState('30')
-  const [status, setStatus] = useState('Ready to deploy')
-
-  const plan = plans.find((item) => item.id === selectedPlan) ?? plans[1]
-
-  const projectedYield = useMemo(() => {
-    const principal = Number(amount) || 0
-    const apy = plan.apy
-    const durationDays = Number(days) || 1
-    const annualized = (principal * apy * durationDays) / 365 / 100
-    return annualized.toFixed(2)
-  }, [amount, days, plan])
-
-  const handleNav = (target: string) => {
-    document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  .topbar {
+    position: static;
   }
 
-  const handleDeposit = () => {
-    if (!Number(amount) || Number(amount) < plan.min) {
-      setStatus(`Minimum deposit for ${plan.name} is $${plan.min}`)
-      return
-    }
-
-    if (!isConnected) {
-      open()
-      setStatus('Wallet connection required to continue')
-      return
-    }
-
-    setStatus(`Prepared ${plan.name} deposit of $${amount} for ${days} days`)
+  .nav,
+  .header-actions {
+    justify-content: start;
   }
 
-  return (
-    <div className="page-shell">
-      <header className="topbar">
-        <div className="brand-wrap">
-          <div className="brand-mark">V</div>
-          <span>VaultX</span>
-        </div>
+  .hero-card {
+    padding: 22px 18px;
+  }
 
-        <nav className="nav">
-          <button type="button" onClick={() => handleNav('overview')}>Overview</button>
-          <button type="button" onClick={() => handleNav('markets')}>Markets</button>
-          <button type="button" onClick={() => handleNav('plans')}>Plans</button>
-          <button type="button" onClick={() => handleNav('security')}>Security</button>
-        </nav>
+  .stats-row,
+  .market-grid,
+  .plan-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
-        <div className="header-actions">
-          <button type="button" className="ghost-button" onClick={() => handleNav('plans')}>
-            Explore
-          </button>
-          <button type="button" className="primary-button" onClick={() => open()}>
-            {isConnected ? 'Wallet Open' : 'Connect Wallet'}
-          </button>
-        </div>
-      </header>
+@media (max-width: 640px) {
+  .page-shell {
+    width: min(100% - 16px, 1200px);
+  }
 
-      <main>
-        <section id="overview" className="hero-card">
-          <div className="hero-copy">
-            <p className="eyebrow">Powered by Abstract</p>
-            <h1>Yield strategy infrastructure for modern digital capital.</h1>
-            <p className="subtitle">
-              VaultX gives you secure, transparent access to high-conviction crypto yield products,
-              portfolio automation, and next-gen treasury execution.
-            </p>
+  .topbar {
+    padding: 14px 12px;
+  }
 
-            <div className="cta-row">
-              <button type="button" className="primary-button" onClick={() => open()}>
-                {isConnected ? 'Open Wallet' : 'Connect Wallet'}
-              </button>
-              <button type="button" className="secondary-button" onClick={() => handleNav('markets')}>
-                View Markets
-              </button>
-            </div>
+  .nav,
+  .header-actions,
+  .stats-row,
+  .market-grid,
+  .plan-grid,
+  .calculator-form,
+  .security-grid {
+    grid-template-columns: 1fr;
+  }
 
-            {isConnected && address && (
-              <div className="wallet-box">
-                <span>Connected wallet</span>
-                <strong>{formatAddress(address)}</strong>
-              </div>
-            )}
-          </div>
+  .nav,
+  .header-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-          <div className="hero-panel">
-            <div className="mini-card success-card">
-              <span>Portfolio value</span>
-              <strong>$428,640</strong>
-              <small>+12.8% this month</small>
-            </div>
-            <div className="mini-card">
-              <span>Best strategy</span>
-              <strong>Vault Plus</strong>
-              <small>12.4% projected APY</small>
-            </div>
-            <div className="performance-ring">
-              <div className="ring-inner">
-                <strong>91%</strong>
-                <span>Risk aligned</span>
-              </div>
-            </div>
-          </div>
-        </section>
+  .cta-row {
+    flex-direction: column;
+  }
 
-        <section className="stats-row" aria-label="Platform statistics">
-          {stats.map((item) => (
-            <div key={item.label} className="stat-item">
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-            </div>
-          ))}
-        </section>
+  .primary-button,
+  .secondary-button,
+  .ghost-button,
+  .nav button,
+  .link-button {
+    width: 100%;
+  }
 
-        <section id="markets" className="section-block">
-          <div className="section-header">
-            <p className="eyebrow">Market intelligence</p>
-            <h2>Choose a vault strategy</h2>
-          </div>
+  .yield-row {
+    display: grid;
+    gap: 16px;
+  }
 
-          <div className="market-grid">
-            {marketCards.map((card) => (
-              <article key={card.title} className="market-card">
-                <div className="card-topline">
-                  <span className="badge">{card.risk}</span>
-                  <strong>{card.apy}</strong>
-                </div>
-                <h3>{card.title}</h3>
-                <p>{card.description}</p>
-                <button type="button" className="link-button" onClick={() => setSelectedPlan('vault-plus')}>
-                  Select strategy
-                </button>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="plans" className="section-block plan-layout">
-          <div className="section-header">
-            <p className="eyebrow">Vault plans</p>
-            <h2>Flexible options for every risk profile</h2>
-          </div>
-
-          <div className="plan-grid">
-            {plans.map((item) => (
-              <button
-                type="button"
-                key={item.id}
-                className={`plan-card ${selectedPlan === item.id ? 'active' : ''}`}
-                onClick={() => setSelectedPlan(item.id)}
-              >
-                <span className="plan-name">{item.name}</span>
-                <strong>{item.apy}%</strong>
-                <small>APY · {item.duration}</small>
-                <em>Min deposit ${item.min}</em>
-              </button>
-            ))}
-          </div>
-
-          <div className="calculator-panel">
-            <div className="calculator-header">
-              <div>
-                <p className="eyebrow">Projection</p>
-                <h3>{plan.name}</h3>
-              </div>
-              <span>{plan.apy}% APY</span>
-            </div>
-
-            <div className="calculator-form">
-              <label>
-                Deposit amount
-                <input
-                  type="number"
-                  min={plan.min}
-                  value={amount}
-                  onChange={(event) => setAmount(event.target.value)}
-                />
-              </label>
-
-              <label>
-                Duration
-                <select value={days} onChange={(event) => setDays(event.target.value)}>
-                  <option value="7">7 days</option>
-                  <option value="30">30 days</option>
-                  <option value="60">60 days</option>
-                  <option value="90">90 days</option>
-                </select>
-              </label>
-            </div>
-
-            <div className="yield-row">
-              <div>
-                <span>Projected yield</span>
-                <strong>${projectedYield}</strong>
-              </div>
-              <button type="button" className="primary-button" onClick={handleDeposit}>
-                {isConnected ? 'Deposit Funds' : 'Connect to Deposit'}
-              </button>
-            </div>
-
-            <p className="status-line">{status}</p>
-          </div>
-        </section>
-
-        <section id="security" className="section-block security-block">
-          <div className="section-header">
-            <p className="eyebrow">Security + compliance</p>
-            <h2>Transparent infrastructure, trusted execution</h2>
-          </div>
-
-          <div className="security-grid">
-            <div className="security-panel">
-              <ul>
-                {features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="metric-panel">
-              <div>
-                <span>Audit coverage</span>
-                <strong>12 protocols</strong>
-              </div>
-              <div>
-                <span>Response SLA</span>
-                <strong>6 min</strong>
-              </div>
-              <div>
-                <span>Withdrawals</span>
-                <strong>24/7</strong>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-  )
+  .hero-card,
+  .section-block {
+    padding: 20px 16px;
+  }
 }
