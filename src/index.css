@@ -1,113 +1,289 @@
-:root {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #e5eefb;
-  background:
-    radial-gradient(circle at top, rgba(93, 111, 255, 0.32), transparent 35%),
-    linear-gradient(180deg, #07111f 0%, #091827 100%);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+import { useAppKit, useAppKitAccount } from '@reown/appkit/react'
+import { useMemo, useState } from 'react'
 
-* {
-  box-sizing: border-box;
-}
+const stats = [
+  { label: 'TVL', value: '$2.8B' },
+  { label: 'Active Vaults', value: '42,180' },
+  { label: 'Avg. APY', value: '12.4%' },
+  { label: 'Security Score', value: '98.7' }
+]
 
-html, body, #root {
-  margin: 0;
-  min-height: 100%;
-  min-height: 100vh;
-}
+const marketCards = [
+  {
+    title: 'Stable Yield',
+    apy: '9.4%',
+    risk: 'Low',
+    description: 'Conservative vault strategy powered by stablecoin lending and treasury flows.'
+  },
+  {
+    title: 'DeFi Momentum',
+    apy: '14.8%',
+    risk: 'Medium',
+    description: 'Dynamic vault rotation across liquid staking and lending protocols.'
+  },
+  {
+    title: 'AI Strategy',
+    apy: '18.6%',
+    risk: 'High',
+    description: 'Adaptive yield optimization for higher-conviction protocol exposure.'
+  }
+]
 
-body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+const plans = [
+  { id: 'vault-lite', name: 'Vault Lite', apy: 8.2, min: 100, duration: '7 days' },
+  { id: 'vault-plus', name: 'Vault Plus', apy: 12.4, min: 500, duration: '30 days' },
+  { id: 'vault-pro', name: 'Vault Pro', apy: 17.9, min: 1500, duration: '90 days' }
+]
 
-button {
-  font: inherit;
-}
+const features = [
+  'Institutional-grade risk controls',
+  'Real-time analytics and treasury tracking',
+  'Multi-chain wallet connectivity',
+  'Transparent APY and performance reporting'
+]
 
-.app-shell {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 16px;
-}
+const formatAddress = (address: string) => `${address.slice(0, 6)}...${address.slice(-4)}`
 
-.hero-card {
-  width: min(760px, 100%);
-  background: rgba(11, 17, 31, 0.8);
-  border: 1px solid rgba(133, 160, 255, 0.25);
-  border-radius: 24px;
-  box-shadow: 0 20px 80px rgba(7, 16, 29, 0.6);
-  padding: 48px 40px;
-}
+export default function App() {
+  const { open } = useAppKit()
+  const { address, isConnected } = useAppKitAccount()
+  const [selectedPlan, setSelectedPlan] = useState('vault-plus')
+  const [amount, setAmount] = useState('2500')
+  const [days, setDays] = useState('30')
+  const [status, setStatus] = useState('Ready to deploy')
 
-.eyebrow {
-  margin: 0 0 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #8bcfff;
-  font-size: 12px;
-  font-weight: 700;
-}
+  const plan = plans.find((item) => item.id === selectedPlan) ?? plans[1]
 
-h1 {
-  margin: 0;
-  font-size: clamp(2.3rem, 4vw, 4rem);
-  line-height: 1.05;
-}
+  const projectedYield = useMemo(() => {
+    const principal = Number(amount) || 0
+    const apy = plan.apy
+    const durationDays = Number(days) || 1
+    const annualized = (principal * apy * durationDays) / 365 / 100
+    return annualized.toFixed(2)
+  }, [amount, days, plan])
 
-.subtitle {
-  margin-top: 18px;
-  max-width: 620px;
-  color: rgba(226, 236, 255, 0.8);
-  font-size: 1.05rem;
-}
+  const handleNav = (target: string) => {
+    document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
-.primary-button {
-  margin-top: 24px;
-  border: 0;
-  border-radius: 999px;
-  padding: 0.9rem 1.5rem;
-  background: linear-gradient(135deg, #5aa9ff 0%, #6173ff 100%);
-  color: white;
-  cursor: pointer;
-  font-weight: 700;
-  transition: transform 0.2s ease;
-}
+  const handleDeposit = () => {
+    if (!Number(amount) || Number(amount) < plan.min) {
+      setStatus(`Minimum deposit for ${plan.name} is $${plan.min}`)
+      return
+    }
 
-.primary-button:hover {
-  transform: translateY(-1px);
-}
+    if (!isConnected) {
+      open()
+      setStatus('Wallet connection required to continue')
+      return
+    }
 
-.wallet-box {
-  margin-top: 22px;
-  border-radius: 16px;
-  background: rgba(17, 26, 42, 0.9);
-  border: 1px solid rgba(123, 181, 255, 0.3);
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+    setStatus(`Prepared ${plan.name} deposit of $${amount} for ${days} days`)
+  }
 
-.wallet-box span {
-  color: #9ab5d7;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
+  return (
+    <div className="page-shell">
+      <header className="topbar">
+        <div className="brand-wrap">
+          <div className="brand-mark">V</div>
+          <span>VaultX</span>
+        </div>
 
-.wallet-box strong {
-  font-size: 0.92rem;
-  word-break: break-all;
+        <nav className="nav">
+          <button type="button" onClick={() => handleNav('overview')}>Overview</button>
+          <button type="button" onClick={() => handleNav('markets')}>Markets</button>
+          <button type="button" onClick={() => handleNav('plans')}>Plans</button>
+          <button type="button" onClick={() => handleNav('security')}>Security</button>
+        </nav>
+
+        <div className="header-actions">
+          <button type="button" className="ghost-button" onClick={() => handleNav('plans')}>
+            Explore
+          </button>
+          <button type="button" className="primary-button" onClick={() => open()}>
+            {isConnected ? 'Wallet Open' : 'Connect Wallet'}
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section id="overview" className="hero-card">
+          <div className="hero-copy">
+            <p className="eyebrow">Powered by Abstract</p>
+            <h1>Yield strategy infrastructure for modern digital capital.</h1>
+            <p className="subtitle">
+              VaultX gives you secure, transparent access to high-conviction crypto yield products,
+              portfolio automation, and next-gen treasury execution.
+            </p>
+
+            <div className="cta-row">
+              <button type="button" className="primary-button" onClick={() => open()}>
+                {isConnected ? 'Open Wallet' : 'Connect Wallet'}
+              </button>
+              <button type="button" className="secondary-button" onClick={() => handleNav('markets')}>
+                View Markets
+              </button>
+            </div>
+
+            {isConnected && address && (
+              <div className="wallet-box">
+                <span>Connected wallet</span>
+                <strong>{formatAddress(address)}</strong>
+              </div>
+            )}
+          </div>
+
+          <div className="hero-panel">
+            <div className="mini-card success-card">
+              <span>Portfolio value</span>
+              <strong>$428,640</strong>
+              <small>+12.8% this month</small>
+            </div>
+            <div className="mini-card">
+              <span>Best strategy</span>
+              <strong>Vault Plus</strong>
+              <small>12.4% projected APY</small>
+            </div>
+            <div className="performance-ring">
+              <div className="ring-inner">
+                <strong>91%</strong>
+                <span>Risk aligned</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="stats-row" aria-label="Platform statistics">
+          {stats.map((item) => (
+            <div key={item.label} className="stat-item">
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+          ))}
+        </section>
+
+        <section id="markets" className="section-block">
+          <div className="section-header">
+            <p className="eyebrow">Market intelligence</p>
+            <h2>Choose a vault strategy</h2>
+          </div>
+
+          <div className="market-grid">
+            {marketCards.map((card) => (
+              <article key={card.title} className="market-card">
+                <div className="card-topline">
+                  <span className="badge">{card.risk}</span>
+                  <strong>{card.apy}</strong>
+                </div>
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+                <button type="button" className="link-button" onClick={() => setSelectedPlan('vault-plus')}>
+                  Select strategy
+                </button>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="plans" className="section-block plan-layout">
+          <div className="section-header">
+            <p className="eyebrow">Vault plans</p>
+            <h2>Flexible options for every risk profile</h2>
+          </div>
+
+          <div className="plan-grid">
+            {plans.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                className={`plan-card ${selectedPlan === item.id ? 'active' : ''}`}
+                onClick={() => setSelectedPlan(item.id)}
+              >
+                <span className="plan-name">{item.name}</span>
+                <strong>{item.apy}%</strong>
+                <small>APY · {item.duration}</small>
+                <em>Min deposit ${item.min}</em>
+              </button>
+            ))}
+          </div>
+
+          <div className="calculator-panel">
+            <div className="calculator-header">
+              <div>
+                <p className="eyebrow">Projection</p>
+                <h3>{plan.name}</h3>
+              </div>
+              <span>{plan.apy}% APY</span>
+            </div>
+
+            <div className="calculator-form">
+              <label>
+                Deposit amount
+                <input
+                  type="number"
+                  min={plan.min}
+                  value={amount}
+                  onChange={(event) => setAmount(event.target.value)}
+                />
+              </label>
+
+              <label>
+                Duration
+                <select value={days} onChange={(event) => setDays(event.target.value)}>
+                  <option value="7">7 days</option>
+                  <option value="30">30 days</option>
+                  <option value="60">60 days</option>
+                  <option value="90">90 days</option>
+                </select>
+              </label>
+            </div>
+
+            <div className="yield-row">
+              <div>
+                <span>Projected yield</span>
+                <strong>${projectedYield}</strong>
+              </div>
+              <button type="button" className="primary-button" onClick={handleDeposit}>
+                {isConnected ? 'Deposit Funds' : 'Connect to Deposit'}
+              </button>
+            </div>
+
+            <p className="status-line">{status}</p>
+          </div>
+        </section>
+
+        <section id="security" className="section-block security-block">
+          <div className="section-header">
+            <p className="eyebrow">Security + compliance</p>
+            <h2>Transparent infrastructure, trusted execution</h2>
+          </div>
+
+          <div className="security-grid">
+            <div className="security-panel">
+              <ul>
+                {features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="metric-panel">
+              <div>
+                <span>Audit coverage</span>
+                <strong>12 protocols</strong>
+              </div>
+              <div>
+                <span>Response SLA</span>
+                <strong>6 min</strong>
+              </div>
+              <div>
+                <span>Withdrawals</span>
+                <strong>24/7</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  )
 }
