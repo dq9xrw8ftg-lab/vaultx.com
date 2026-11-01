@@ -1,600 +1,693 @@
-:root {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #edf4ff;
-  background: #07111f;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-html, body, #root {
-  margin: 0;
-  min-height: 100%;
-  min-height: 100vh;
-}
-
-body {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(95, 124, 255, 0.24), transparent 26%),
-    linear-gradient(180deg, #07111f 0%, #0b1728 100%);
-}
-
-button,
-input,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-.page-shell {
-  width: min(1200px, calc(100% - 28px));
-  margin: 0 auto;
-  padding: 26px 0 72px;
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 16px 20px;
-  border: 1px solid rgba(148, 167, 255, 0.18);
-  border-radius: 18px;
-  background: rgba(9, 17, 31, 0.72);
-  backdrop-filter: blur(18px);
-  position: sticky;
-  top: 18px;
-  z-index: 10;
-}
-
-.brand-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.brand-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #6ab8ff 0%, #6077ff 100%);
-  color: white;
-  font-weight: 900;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.nav button,
-.ghost-button,
-.secondary-button,
-.link-button {
-  background: transparent;
-  border: 1px solid rgba(162, 181, 255, 0.24);
-  color: #e3eeff;
-  border-radius: 999px;
-  padding: 0.72rem 1rem;
-  transition: all 0.2s ease;
-}
-
-.nav button:hover,
-.ghost-button:hover,
-.secondary-button:hover,
-.link-button:hover {
-  border-color: rgba(162, 181, 255, 0.5);
-  transform: translateY(-1px);
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.primary-button {
-  border: 0;
-  border-radius: 999px;
-  padding: 0.9rem 1.4rem;
-  background: linear-gradient(135deg, #57a9ff 0%, #5d77ff 100%);
-  color: white;
-  font-weight: 700;
-  box-shadow: 0 10px 26px rgba(81, 113, 255, 0.35);
-  transition: all 0.2s ease;
-}
-
-.primary-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 32px rgba(81, 113, 255, 0.42);
-}
-
-main {
-  margin-top: 30px;
-}
-
-.hero-card,
-.section-block,
-.stat-item,
-.market-card,
-.plan-card,
-.calculator-panel,
-.security-panel,
-.metric-panel {
-  border: 1px solid rgba(153, 175, 255, 0.18);
-  background: rgba(10, 18, 31, 0.72);
-  box-shadow: 0 22px 70px rgba(6, 12, 22, 0.4);
-}
-
-.hero-card {
-  display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
-  gap: 28px;
-  padding: 36px;
-  border-radius: 28px;
-}
-
-.hero-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.eyebrow {
-  margin: 0 0 12px;
-  color: #8ec9ff;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  font-weight: 800;
-}
-
-h1 {
-  margin: 0;
-  font-size: clamp(2.7rem, 5vw, 4.8rem);
-  letter-spacing: -0.06em;
-  line-height: 0.98;
-}
-
-.subtitle {
-  margin: 18px 0 0;
-  max-width: 640px;
-  color: rgba(228, 236, 255, 0.8);
-  font-size: 1.06rem;
-}
-
-.cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 28px;
-}
-
-.wallet-box {
-  margin-top: 24px;
-  display: inline-flex;
-  flex-direction: column;
-  gap: 6px;
-  width: fit-content;
-  padding: 16px 18px;
-  border-radius: 16px;
-  background: rgba(15, 23, 37, 0.9);
-  border: 1px solid rgba(129, 175, 255, 0.25);
-}
-
-.wallet-box span {
-  color: #9ec8f4;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.wallet-box strong {
-  font-size: 0.96rem;
-  word-break: break-all;
-}
-
-.hero-panel {
-  display: grid;
-  gap: 18px;
-  align-content: center;
-}
-
-.mini-card {
-  padding: 22px 18px;
-  border-radius: 20px;
-  background: rgba(13, 22, 38, 0.9);
-  border: 1px solid rgba(149, 174, 255, 0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.mini-card.success-card {
-  background: linear-gradient(180deg, rgba(14, 33, 46, 0.96), rgba(11, 22, 36, 0.96));
-}
-
-.mini-card span,
-.performance-ring span,
-.metric-panel span,
-.stat-item span,
-.calculator-header span,
-.yield-row span {
-  color: #a2b9dc;
-  font-size: 0.74rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.mini-card strong,
-.performance-ring strong,
-.stat-item strong,
-.metric-panel strong,
-.yield-row strong {
-  font-size: clamp(1.3rem, 2vw, 2.1rem);
-  line-height: 1.08;
-}
-
-.mini-card small {
-  color: #a9d0ff;
-}
-
-.performance-ring {
-  width: 180px;
-  height: 180px;
-  margin: 0 auto;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: conic-gradient(#66b7ff 0 91%, rgba(255,255,255,0.08) 91% 100%);
-  padding: 18px;
-}
-
-.ring-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: rgba(10, 18, 31, 0.96);
-  text-align: center;
-}
-
-.ring-inner strong {
-  display: block;
-  font-size: 1.9rem;
-}
-
-.ring-inner span {
-  display: block;
-  margin-top: 4px;
-}
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 28px;
-}
-
-.stat-item {
-  padding: 22px 18px;
-  border-radius: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.section-block {
-  margin-top: 32px;
-  padding: 28px 24px;
-  border-radius: 24px;
-}
-
-.section-header {
-  margin-bottom: 22px;
-}
-
-.section-header h2 {
-  margin: 0;
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  letter-spacing: -0.04em;
-}
-
-.market-grid,
-.plan-grid,
-.security-grid {
-  display: grid;
-  gap: 20px;
-}
-
-.market-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.market-card {
-  border-radius: 20px;
-  padding: 22px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.card-topline {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.badge {
-  display: inline-flex;
-  color: #98f2d1;
-  background: rgba(46, 126, 93, 0.18);
-  border: 1px solid rgba(110, 221, 170, 0.24);
-  border-radius: 999px;
-  padding: 0.38rem 0.66rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-
-.market-card h3,
-.calculator-header h3 {
-  margin: 0;
-  font-size: 1.55rem;
-}
-
-.market-card p {
-  margin: 0;
-  color: rgba(225, 233, 255, 0.7);
-}
-
-.link-button {
-  width: fit-content;
-  margin-top: auto;
-}
-
-.plan-layout {
-  display: grid;
-  gap: 20px;
-}
-
-.plan-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.plan-card {
-  padding: 22px 18px;
-  border-radius: 18px;
-  text-align: left;
-  color: #edf5ff;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: all 0.2s ease;
-}
-
-.plan-card.active {
-  border-color: rgba(120, 157, 255, 0.75);
-  background: linear-gradient(180deg, rgba(19, 31, 52, 0.98), rgba(11, 22, 38, 0.96));
-}
-
-.plan-card .plan-name,
-.plan-card small,
-.plan-card em {
-  color: rgba(225, 233, 255, 0.82);
-}
-
-.plan-card strong {
-  font-size: 2.2rem;
-  line-height: 1;
-}
-
-.calculator-panel {
-  border-radius: 20px;
-  padding: 26px 22px;
-}
-
-.calculator-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.calculator-form {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 20px;
-}
-
-.calculator-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  color: #e4edff;
-  font-weight: 600;
-}
-
-.calculator-form input,
-.calculator-form select {
-  width: 100%;
-  min-height: 48px;
-  border-radius: 12px;
-  border: 1px solid rgba(147, 171, 255, 0.24);
-  padding: 0.85rem 1rem;
-  background: rgba(10, 19, 31, 0.96);
-  color: #edf5ff;
-}
-
-.yield-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 18px;
-  margin-top: 24px;
-  border-top: 1px solid rgba(147, 171, 255, 0.14);
-  padding-top: 24px;
-}
-
-.yield-row strong {
-  display: block;
-  margin-top: 6px;
-}
-
-.status-line {
-  margin: 18px 0 0;
-  color: #b7dfff;
-}
-
-.security-grid {
-  grid-template-columns: 1.2fr 0.8fr;
-}
-
-.security-panel,
-.metric-panel {
-  border-radius: 20px;
-  padding: 22px 20px;
-}
-
-.security-panel ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 12px;
-}
-
-.security-panel li {
-  position: relative;
-  padding-left: 24px;
-  color: rgba(229, 236, 255, 0.86);
-}
-
-.security-panel li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #7ce0b0;
-  font-weight: 800;
-}
-
-.metric-panel {
-  display: grid;
-  gap: 18px;
-  align-content: center;
-}
-
-.metric-panel > div {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 18px 16px;
-  border-radius: 14px;
-  background: rgba(12, 23, 37, 0.96);
-}
-
-@media (max-width: 900px) {
-  .topbar,
-  .header-actions,
-  .hero-card,
-  .security-grid,
-  .yield-row,
-  .calculator-form {
-    display: grid;
-    grid-template-columns: 1fr;
+import { useEffect, useMemo, useState } from 'react'
+
+const pagePadding = { maxWidth: '1180px', margin: '0 auto' }
+
+type Asset = {
+  id: string
+  name: string
+  symbol: string
+  category: string
+  marketCap: string
+  price: string
+  change: number
+  sentiment: 'Bullish' | 'Neutral' | 'Cautious'
+  risk: 'Low' | 'Moderate' | 'High'
+  description: string
+  icon: string
+}
+
+type Plan = {
+  id: string
+  name: string
+  apy: string
+  min: string
+  max: string
+  term: string
+  liquidity: string
+  status: 'Featured' | 'Popular' | 'Flexible'
+}
+
+type Transaction = {
+  id: string
+  type: string
+  amount: string
+  date: string
+  status: 'Completed' | 'Pending' | 'Processing'
+  ref: string
+}
+
+const assetNames = [
+  'Bitcoin', 'Ethereum', 'Solana', 'Chainlink', 'Avalanche', 'Polkadot', 'Cardano', 'Cosmos', 'Uniswap', 'Aave',
+  'Ripple', 'Litecoin', 'Stellar', 'Dogecoin', 'Sui', 'Arbitrum', 'Optimism', 'Near', 'Injective', 'Algorand',
+  'Render', 'Filecoin', 'The Graph', 'Ondo', 'Maker', 'Celestia', 'Mantle', 'Sei', 'Pepe', 'Toncoin', 'NEAR',
+  'Pyth', 'Helium', 'Internet Computer', 'Aptos', 'Polygon', 'BNB', 'Fantom', 'Theta', 'Zcash', 'Monero',
+  'Theta Fuel', 'Kaspa', 'Hedera', 'Flow', 'Dai', 'USDC', 'USDT', 'Tether Gold', 'Worldcoin', 'Pax Gold', 'Wrapped Bitcoin',
+  'Lido Staked ETH', 'EigenLayer', 'Gitcoin', 'Frax', 'Rocket Pool', 'Bonk', 'PancakeSwap', 'Curve DAO', 'Synthetix', 'Aurox',
+  'Convex Finance', 'Gala', 'Sandbox', 'Axie Infinity', 'DeFi Kingdoms', 'Immutable X', '1inch', 'Loopring', 'Paxos Gold', 'LUNC'
+]
+
+function makeAssetIcon(symbol: string, bg: string) {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="${bg}"/>
+          <stop offset="100%" stop-color="#101b17"/>
+        </linearGradient>
+      </defs>
+      <rect width="128" height="128" rx="26" fill="url(#g)"/>
+      <circle cx="64" cy="64" r="36" fill="rgba(255,255,255,0.12)"/>
+      <text x="64" y="74" text-anchor="middle" font-size="34" font-family="Arial, Helvetica, sans-serif" fill="#eef5f0" font-weight="700">${symbol.slice(0, 3).toUpperCase()}</text>
+    </svg>
+  `
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`
+}
+
+const assetSeed: Asset[] = assetNames.map((name, index) => {
+  const symbols = ['BTC', 'ETH', 'SOL', 'LINK', 'AVAX', 'DOT', 'ADA', 'ATOM', 'UNI', 'AAVE', 'XRP', 'LTC', 'XLM', 'DOGE', 'SUI', 'ARB', 'OP', 'NEAR', 'INJ', 'ALGO', 'RNDR', 'FIL', 'GRT', 'ONDO', 'MKR', 'TIA', 'MNT', 'SEI', 'PEPE', 'TON', 'PYTH', 'HNT', 'ICP', 'APT', 'MATIC', 'BNB', 'FTM', 'THETA', 'ZEC', 'XMR', 'TFUEL', 'KAS', 'HBAR', 'FLOW', 'DAI', 'USDC', 'USDT', 'XAUT', 'WLD', 'PAXG', 'WBTC', 'stETH', 'EIGEN', 'GTC', 'FRAX', 'RPL', 'BONK', 'CAKE', 'CRV', 'SNX', 'AUR', 'CVX', 'GALA', 'SAND', 'AXS', 'DFK', 'IMX', '1INCH', 'LRC', 'PAXG', 'LUNC']
+  const symbol = symbols[index % symbols.length] || 'AST'
+  const cats = ['Layer 1', 'DeFi', 'Infrastructure', 'AI', 'Stablecoin', 'Real World Asset', 'Gaming', 'Oracle', 'Liquid Staking', 'Index']
+  const colors = ['#d9c28a', '#83d6a8', '#7dd3fc', '#c084fc', '#fbbf24', '#fca5a5', '#93c5fd', '#a7f3d0', '#f9a8d4', '#fcd34d']
+  const change = Number((Math.random() * 12 - 6).toFixed(2))
+  const priceValue = (Math.random() * 150000 + 10).toFixed(2)
+  return {
+    id: `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${index}`,
+    name,
+    symbol,
+    category: cats[index % cats.length],
+    marketCap: `$${(Math.random() * 800000000000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`,
+    price: `$${priceValue}`,
+    change,
+    sentiment: change > 2 ? 'Bullish' : change < -2 ? 'Cautious' : 'Neutral',
+    risk: index % 3 === 0 ? 'Low' : index % 3 === 1 ? 'Moderate' : 'High',
+    description: 'Curated market data and risk-adjusted allocation data for investment review and portfolio planning.',
+    icon: makeAssetIcon(symbol, colors[index % colors.length])
+  }
+})
+
+const plans: Plan[] = [
+  { id: 'starter', name: 'Vaulta Growth', apy: '8.4%', min: '$20,000', max: '$50,000', term: '12 months', liquidity: 'Quarterly', status: 'Popular' },
+  { id: 'income', name: 'Yield Reserve', apy: '12.1%', min: '$100,000', max: '$1,000,000', term: '36 months', liquidity: 'Semi-annual', status: 'Featured' },
+  { id: 'private', name: 'Capital Horizon', apy: '15.8%', min: '$1,000,000', max: '$1,000,000,000', term: '60 months', liquidity: 'Term-based', status: 'Flexible' }
+]
+
+const transactions: Transaction[] = [
+  { id: 'TX-3102', type: 'Deposit', amount: '$18,500', date: '2026-10-28', status: 'Completed', ref: 'DEP-3102' },
+  { id: 'TX-3106', type: 'Yield Payout', amount: '$1,240', date: '2026-10-24', status: 'Processing', ref: 'YLD-3106' },
+  { id: 'TX-3110', type: 'Withdrawal Request', amount: '$5,000', date: '2026-10-18', status: 'Pending', ref: 'WDR-3110' }
+]
+
+const testimonials = [
+  { name: 'Elena R.', quote: 'Vaulta made our diversified strategy feel clear, structured and much easier to manage.', company: 'Family office' },
+  { name: 'Marcus P.', quote: 'The dashboard and research tools give a level of confidence we were missing before.', company: 'Private investor' },
+  { name: 'Nia S.', quote: 'Beautiful presentation, intuitive risk framing, and a product story that makes sense.', company: 'Digital asset manager' }
+]
+
+const userMenu = ['Overview', 'My Investments', 'Explore Plans', 'Transactions', 'Documents', 'Notifications', 'Profile & Security', 'Help / Support']
+const adminMenu = ['Admin Overview', 'Users', 'Plans', 'Investment Applications', 'Investments', 'Deposits / Funding', 'Withdrawals / Payout Requests', 'Transactions / Ledger', 'Asset Catalogue', 'Market Data', 'AI Settings', 'Content / Pages', 'Audit Logs']
+
+const formatAddress = (address: string) => `${address.slice(0, 6)}...${address.slice(-4)}`
+
+function useHashRoute() {
+  const [route, setRoute] = useState<string>(() => window.location.hash.replace(/^#/, '') || '/')
+
+  useEffect(() => {
+    const handler = () => setRoute(window.location.hash.replace(/^#/, '') || '/')
+    window.addEventListener('hashchange', handler)
+    return () => window.removeEventListener('hashchange', handler)
+  }, [])
+
+  const go = (path: string) => {
+    const clean = path.startsWith('/') ? path : `/${path}`
+    window.location.hash = clean
+    setRoute(clean)
   }
 
-  .topbar {
-    position: static;
-  }
-
-  .nav,
-  .header-actions {
-    justify-content: start;
-  }
-
-  .hero-card {
-    padding: 22px 18px;
-  }
-
-  .stats-row,
-  .market-grid,
-  .plan-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  return { route, go }
 }
 
-@media (max-width: 640px) {
-  .page-shell {
-    width: min(100% - 16px, 1200px);
+function PageShell({ children, onNavClick }: { children: React.ReactNode; onNavClick: (path: string) => void }) {
+  const [walletConnected, setWalletConnected] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [selectedMood, setSelectedMood] = useState('Overview')
+
+  const publicNav = [
+    { label: 'Home', href: '/' },
+    { label: 'Markets / Assets', href: '/markets' },
+    { label: 'Plans', href: '/plans' },
+    { label: 'About', href: '/about' },
+    { label: 'Risk Disclosure', href: '/risk' },
+    { label: 'Help / Contact', href: '/contact' },
+  ]
+
+  return (
+    <div className="vault-shell">
+      <header className="topbar">
+        <div className="brand" onClick={() => onNavClick('/')} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && onNavClick('/')}>
+          <span className="brand-dot" />
+          <span>Vaulta</span>
+        </div>
+
+        <nav className="main-nav" aria-label="Main navigation">
+          {publicNav.map((item) => (
+            <button key={item.label} type="button" className="nav-button" onClick={() => onNavClick(item.href)}>
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="header-actions">
+          <button type="button" className="light-button" onClick={() => onNavClick('/login')}>
+            Log In
+          </button>
+          <button type="button" className="primary-button" onClick={() => onNavClick('/signup')}>
+            Create Account
+          </button>
+        </div>
+      </header>
+
+      {children}
+
+      <footer className="site-footer" style={pagePadding}>
+        <div className="footer-grid">
+          <div>
+            <div className="brand footer-brand"><span className="brand-dot" /> Vaulta</div>
+            <p className="muted">Modern investment research, structured plan access and portfolio visibility for digital asset capital.</p>
+          </div>
+          <div>
+            <h4>Explore</h4>
+            <ul>
+              <li><button type="button" onClick={() => onNavClick('/markets')}>Markets</button></li>
+              <li><button type="button" onClick={() => onNavClick('/plans')}>Plans</button></li>
+              <li><button type="button" onClick={() => onNavClick('/about')}>About</button></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Legal</h4>
+            <ul>
+              <li><button type="button" onClick={() => onNavClick('/risk')}>Risk Disclosure</button></li>
+              <li><button type="button" onClick={() => onNavClick('/terms')}>Terms</button></li>
+              <li><button type="button" onClick={() => onNavClick('/privacy')}>Privacy</button></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <ul>
+              <li><button type="button" onClick={() => onNavClick('/contact')}>Help / Contact</button></li>
+              <li><button type="button" onClick={() => onNavClick('/login')}>Login</button></li>
+              <li><button type="button" onClick={() => onNavClick('/signup')}>Create account</button></li>
+            </ul>
+          </div>
+        </div>
+        <div className="copyright">© 2026 Vaulta. Educational demo platform configured for product prototyping and workflow design.</div>
+      </footer>
+    </div>
+  )
+}
+
+function SectionHeader({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
+  return (
+    <div className="section-header">
+      <p className="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      {description ? <p className="muted section-copy">{description}</p> : null}
+    </div>
+  )
+}
+
+function PublicHome({ go }: { go: (path: string) => void }) {
+  const featured = assetSeed.slice(0, 4)
+  return (
+    <main style={pagePadding}>
+      <section className="hero-block">
+        <div className="hero-copy">
+          <p className="eyebrow">Vaulta • Protected portfolio intelligence</p>
+          <h1>Your capital. Your protection map.</h1>
+          <p className="lead">Explore curated digital assets, review plan structures, and make informed capital decisions with a premium portfolio-management experience built for modern investors.</p>
+          <div className="cta-row">
+            <button className="primary-button" type="button" onClick={() => go('/markets')}>Explore Assets</button>
+            <button className="ghost-button" type="button" onClick={() => go('/plans')}>View Plans</button>
+          </div>
+          <div className="market-badges">
+            <span>BTC</span>
+            <span>ETH</span>
+            <span>SOL</span>
+            <span>NASDAQ</span>
+            <span>RWA</span>
+          </div>
+        </div>
+
+        <div className="hero-panel">
+          <div className="mini-stat dark">
+            <span>Portfolio value</span>
+            <strong>$428,640</strong>
+            <small>+12.8% this month</small>
+          </div>
+          <div className="mini-stat">
+            <span>Best strategy</span>
+            <strong>Yield Reserve</strong>
+            <small>12.1% target APY</small>
+          </div>
+          <div className="progress-ring">
+            <div className="ring-center">
+              <strong>91%</strong>
+              <span>Protected</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="stats-grid">
+        {[
+          { label: 'TVL', value: '$2.8B' },
+          { label: 'Active Vaults', value: '42,180' },
+          { label: 'Avg. APY', value: '12.4%' },
+          { label: 'Risk score', value: '98.7' },
+        ].map((stat) => (
+          <div key={stat.label} className="stat-card">
+            <span>{stat.label}</span>
+            <strong>{stat.value}</strong>
+          </div>
+        ))}
+      </section>
+
+      <section className="content-block">
+        <SectionHeader eyebrow="Featured assets" title="Market overview" description="Curated, source-aware data with dynamic signal labels and disposition controls." />
+        <div className="asset-grid compact">
+          {featured.map((asset) => (
+            <button key={asset.id} type="button" className="asset-card small" onClick={() => go(`/assets/${asset.id}`)}>
+              <div className="asset-head">
+                <img src={asset.icon} alt={asset.name} />
+                <div>
+                  <h3>{asset.name}</h3>
+                  <p>{asset.symbol}</p>
+                </div>
+              </div>
+              <div className="asset-meta-row">
+                <span>{asset.category}</span>
+                <strong>{asset.change > 0 ? '+' : ''}{asset.change}%</strong>
+              </div>
+              <div className="price-line">{asset.price}</div>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="content-block">
+        <SectionHeader eyebrow="How it works" title="A clearer path to strategic capital deployment" description="Vaulta blends asset research, structured risk framing and portfolio controls in one interface." />
+        <div className="three-col">
+          {[
+            ['Discover', 'Review a curated asset universe with valuations, sentiment overlays and source-aware metadata.'],
+            ['Assess', 'Compare plan terms, eligibility windows and return structures with transparent constraints.'],
+            ['Deploy', 'Submit an application, monitor progress and track performance with a trusted workflow.']
+          ].map(([title, text]) => (
+            <div className="info-panel" key={title}>
+              <span>{title}</span>
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="content-block">
+        <SectionHeader eyebrow="Proof points" title="Built for confidence" description="Trust cues, content, and clear disclosures help support a responsible investing experience." />
+        <div className="proof-grid">
+          <div className="proof-card"><span>Licensing</span><strong>Demo config</strong><small>Owner must complete legal registration data before launch.</small></div>
+          <div className="proof-card"><span>Audits</span><strong>Pending review</strong><small>Audit partner and report record should be attached before public launch.</small></div>
+          <div className="proof-card"><span>Listings</span><strong>Exchange references</strong><small>Use only verified exchange and custody links before publishing.</small></div>
+          <div className="proof-card"><span>Custody</span><strong>Secured workflow</strong><small>Wallet and custodian provider connections must be reviewed in production.</small></div>
+        </div>
+      </section>
+
+      <section className="content-block testimonials">
+        <SectionHeader eyebrow="What investors say" title="Independent confidence" description="User-facing validation and social proof help establish trust without making unverified claims." />
+        <div className="testimonial-grid">
+          {testimonials.map((item) => (
+            <div className="quote-card" key={item.name}>
+              <p>“{item.quote}”</p>
+              <strong>{item.name}</strong>
+              <span>{item.company}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+  )
+}
+
+function MarketsPage({ go }: { go: (path: string) => void }) {
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState('All')
+  const [sort, setSort] = useState('marketcap')
+
+  const categories = ['All', 'Layer 1', 'DeFi', 'Stablecoin', 'Infrastructure', 'AI', 'Real World Asset']
+
+  const visibleAssets = useMemo(() => {
+    const filtered = assetSeed.filter((asset) => {
+      const matchesSearch = asset.name.toLowerCase().includes(search.toLowerCase()) || asset.symbol.toLowerCase().includes(search.toLowerCase())
+      const matchesCategory = category === 'All' || asset.category === category
+      return matchesSearch && matchesCategory
+    })
+
+    return [...filtered].sort((a, b) => {
+      const aNum = Number(a.price.replace(/[$,]/g, ''))
+      const bNum = Number(b.price.replace(/[$,]/g, ''))
+      if (sort === 'price') return bNum - aNum
+      if (sort === 'change') return b.change - a.change
+      return 0
+    })
+  }, [search, category, sort])
+
+  return (
+    <main style={pagePadding}>
+      <section className="page-hero narrow">
+        <SectionHeader eyebrow="Markets / Assets" title="Discover digital assets" description="Curated data, structured reviews and transparent risk context for portfolio planning." />
+      </section>
+
+      <section className="toolbar-panel">
+        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search asset or symbol" />
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          {categories.map((item) => <option key={item} value={item}>{item}</option>)}
+        </select>
+        <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <option value="marketcap">Market cap</option>
+          <option value="price">Price</option>
+          <option value="change">Performance</option>
+        </select>
+      </section>
+
+      <section className="asset-grid full">
+        {visibleAssets.map((asset) => (
+          <button key={asset.id} type="button" className="asset-card" onClick={() => go(`/assets/${asset.id}`)}>
+            <div className="asset-head">
+              <img src={asset.icon} alt={asset.name} />
+              <div>
+                <h3>{asset.name}</h3>
+                <p>{asset.symbol}</p>
+              </div>
+            </div>
+            <div className="asset-meta-row">
+              <span>{asset.category}</span>
+              <strong className={asset.change >= 0 ? 'up' : 'down'}>{asset.change > 0 ? '+' : ''}{asset.change}%</strong>
+            </div>
+            <div className="price-line">{asset.price}</div>
+            <div className="mini-facts">
+              <span>Market cap</span>
+              <strong>{asset.marketCap}</strong>
+            </div>
+          </button>
+        ))}
+      </section>
+    </main>
+  )
+}
+
+function AssetDetailsPage({ route, go }: { route: string; go: (path: string) => void }) {
+  const target = assetSeed.find((asset) => asset.id === route.split('/assets/')[1]) || assetSeed[0]
+
+  return (
+    <main style={pagePadding}>
+      <section className="asset-detail-shell">
+        <div className="asset-detail-header">
+          <div className="asset-head large">
+            <img src={target.icon} alt={target.name} />
+            <div>
+              <p className="eyebrow">Asset detail</p>
+              <h2>{target.name}</h2>
+              <p>{target.symbol}</p>
+            </div>
+          </div>
+          <div className="asset-summary-box">
+            <span>Current price</span>
+            <strong>{target.price}</strong>
+            <small>{target.change > 0 ? '+' : ''}{target.change}% in the last 24h</small>
+          </div>
+        </div>
+
+        <div className="detail-grid">
+          <div className="panel-box">
+            <h3>Description</h3>
+            <p>{target.description}</p>
+            <p className="muted">Source: Market aggregates and provider snapshots • Updated 2 minutes ago • Demo data flagged as educational.</p>
+          </div>
+          <div className="panel-box">
+            <h3>Market context</h3>
+            <ul className="data-list">
+              <li><span>Category</span><strong>{target.category}</strong></li>
+              <li><span>Risk</span><strong>{target.risk}</strong></li>
+              <li><span>Sentiment</span><strong>{target.sentiment}</strong></li>
+              <li><span>Market cap</span><strong>{target.marketCap}</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+function PlansPage({ go }: { go: (path: string) => void }) {
+  return (
+    <main style={pagePadding}>
+      <section className="page-hero narrow">
+        <SectionHeader eyebrow="Plans" title="Build a risk-adjusted strategy" description="Flexible structures for digital capital deployment, with transparent eligibility and clear investment terms." />
+      </section>
+
+      <section className="plan-grid">
+        {plans.map((plan) => (
+          <button key={plan.id} type="button" className="plan-card" onClick={() => go(`/plans/${plan.id}`)}>
+            <span className="plan-tag">{plan.status}</span>
+            <h3>{plan.name}</h3>
+            <strong>{plan.apy}</strong>
+            <small>{plan.term}</small>
+            <div className="plan-meta">
+              <span>Min</span><strong>{plan.min}</strong>
+            </div>
+            <div className="plan-meta">
+              <span>Max</span><strong>{plan.max}</strong>
+            </div>
+            <p>{plan.liquidity} liquidity window</p>
+          </button>
+        ))}
+      </section>
+    </main>
+  )
+}
+
+function PlanDetailsPage({ route }: { route: string }) {
+  const planId = route.split('/plans/')[1]
+  const plan = plans.find((item) => item.id === planId) || plans[1]
+
+  return (
+    <main style={pagePadding}>
+      <section className="plan-detail-panel">
+        <div className="plan-detail-header">
+          <div>
+            <p className="eyebrow">Plan detail</p>
+            <h2>{plan.name}</h2>
+          </div>
+          <span className="plan-tag">{plan.status}</span>
+        </div>
+
+        <div className="plan-detail-grid">
+          <div className="panel-box">
+            <h3>Terms</h3>
+            <ul className="data-list">
+              <li><span>Target APY</span><strong>{plan.apy}</strong></li>
+              <li><span>Minimum</span><strong>{plan.min}</strong></li>
+              <li><span>Maximum</span><strong>{plan.max}</strong></li>
+              <li><span>Term</span><strong>{plan.term}</strong></li>
+              <li><span>Liquidity</span><strong>{plan.liquidity}</strong></li>
+            </ul>
+          </div>
+          <div className="panel-box">
+            <h3>Disclosures</h3>
+            <p>All plan structures are provided as educational templates. Risk disclosure, terms, and provider configuration must be approved before production launch. This UI is designed to demonstrate the user journey and workflow.</p>
+            <button type="button" className="primary-button full">Apply now</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+function AuthPage({ mode, setLoggedIn, go }: { mode: 'login' | 'signup'; setLoggedIn: (v: boolean) => void; go: (path: string) => void }) {
+  const [email, setEmail] = useState('investor@vaulta.demo')
+  const [password, setPassword] = useState('DemoPass123!')
+
+  return (
+    <main style={pagePadding} className="auth-wrap">
+      <div className="auth-card">
+        <div className="auth-top">
+          <p className="eyebrow">{mode === 'login' ? 'Welcome back' : 'Create account'}</p>
+          <h2>{mode === 'login' ? 'Secure access' : 'Register with Vaulta'}</h2>
+        </div>
+
+        <div className="auth-form">
+          <label>
+            Email
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </label>
+          <label>
+            Password
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+          {mode === 'signup' ? (
+            <label>
+              Full name
+              <input type="text" defaultValue="Alex Morgan" />
+            </label>
+          ) : null}
+          <button type="button" className="primary-button full" onClick={() => { setLoggedIn(true); go('/dashboard') }}>
+            {mode === 'login' ? 'Log in' : 'Create account'}
+          </button>
+          <button type="button" className="ghost-button full" onClick={() => go(mode === 'login' ? '/signup' : '/login')}>
+            {mode === 'login' ? 'Need an account?' : 'Already registered?'}
+          </button>
+        </div>
+      </div>
+    </main>
+  )
+}
+
+function DashboardLayout({ isAdmin, isLoggedIn, go }: { isAdmin: boolean; isLoggedIn: boolean; go: (path: string) => void }) {
+  const nav = isAdmin ? adminMenu : userMenu
+
+  return (
+    <main className="dashboard-shell" style={pagePadding}>
+      <aside className="sidebar">
+        <div className="brand sidebar-brand"><span className="brand-dot" /> Vaulta</div>
+        {nav.map((item) => (
+          <button key={item} type="button" className="sidebar-button" onClick={() => go(isAdmin ? `/admin/${item.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : `/dashboard/${item.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)}>
+            {item}
+          </button>
+        ))}
+        <button type="button" className="light-button wide" onClick={() => go('/')}>Sign out</button>
+      </aside>
+
+      <div className="dashboard-body">
+        {isAdmin ? <AdminOverview /> : <UserOverview />}
+      </div>
+    </main>
+  )
+}
+
+function UserOverview() {
+  return (
+    <div className="dash-grid">
+      <div className="panel-box hero-panel-box">
+        <p className="eyebrow">Overview</p>
+        <h2>Welcome back, Alex.</h2>
+        <p className="muted">Your portfolio remains diversified across high-conviction digital assets and income-focused strategies.</p>
+      </div>
+
+      <div className="stat-card wide">
+        <span>Total contribution</span>
+        <strong>$246,500</strong>
+      </div>
+      <div className="stat-card wide">
+        <span>Current value</span>
+        <strong>$291,840</strong>
+      </div>
+      <div className="stat-card wide">
+        <span>Next action</span>
+        <strong>Review Q4 payout</strong>
+      </div>
+
+      <div className="panel-box full-span">
+        <h3>Recent transactions</h3>
+        <table className="table">
+          <thead>
+            <tr><th>Type</th><th>Amount</th><th>Date</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            {transactions.map((item) => (
+              <tr key={item.id}><td>{item.type}</td><td>{item.amount}</td><td>{item.date}</td><td><span className={`status ${item.status.toLowerCase()}`}>{item.status}</span></td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function AdminOverview() {
+  return (
+    <div className="dash-grid admin-grid">
+      <div className="panel-box hero-panel-box">
+        <p className="eyebrow">Admin overview</p>
+        <h2>Operations centre</h2>
+        <p className="muted">Review users, investment flow, funding requests and recent audit events.</p>
+      </div>
+      <div className="stat-card wide"><span>Users</span><strong>2,416</strong></div>
+      <div className="stat-card wide"><span>Applications</span><strong>184</strong></div>
+      <div className="stat-card wide"><span>Funding requests</span><strong>19</strong></div>
+      <div className="panel-box full-span"><h3>Recent activity</h3><ul className="data-list slim"><li><span>New KYC review</span><strong>3 pending</strong></li><li><span>Yield payout batch</span><strong>Queued</strong></li><li><span>Audit event</span><strong>2 flagged</strong></li></ul></div>
+    </div>
+  )
+}
+
+function OtherPage({ title, subtitle }: { title: string; subtitle: string }) {
+  return (
+    <main style={pagePadding}>
+      <section className="page-hero narrow">
+        <SectionHeader eyebrow="Vaulta" title={title} description={subtitle} />
+      </section>
+    </main>
+  )
+}
+
+export default function App() {
+  const { route, go } = useHashRoute()
+  const [authMode, setAuthMode] = useState<'login' | 'signup'>('login')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if (route.startsWith('/dashboard')) {
+      setIsAdmin(false)
+    }
+    if (route.startsWith('/admin')) {
+      setIsAdmin(true)
+    }
+  }, [route])
+
+  const publicPage = () => {
+    if (route === '/markets') return <MarketsPage go={go} />
+    if (route.startsWith('/assets/')) return <AssetDetailsPage route={route} go={go} />
+    if (route === '/plans') return <PlansPage go={go} />
+    if (route.startsWith('/plans/')) return <PlanDetailsPage route={route} />
+    if (route === '/about') return <OtherPage title="About Vaulta" subtitle="A premium product for research-aware capital deployment, risk visibility and structured investment review." />
+    if (route === '/risk') return <OtherPage title="Risk Disclosure" subtitle="Educational data only. Use all disclosures and legal review before making investment decisions." />
+    if (route === '/contact') return <OtherPage title="Help / Contact" subtitle="Contact support, send a ticket, or request onboarding assistance." />
+    if (route === '/terms') return <OtherPage title="Terms" subtitle="Sample legal text placeholder for owner review before production launch." />
+    if (route === '/privacy') return <OtherPage title="Privacy Policy" subtitle="Sample privacy and data handling placeholder for deployment review." />
+    return <PublicHome go={go} />
   }
 
-  .topbar {
-    padding: 14px 12px;
+  const authPage = () => {
+    if (route === '/login') return <AuthPage mode="login" setLoggedIn={setIsLoggedIn} go={go} />
+    if (route === '/signup') return <AuthPage mode="signup" setLoggedIn={setIsLoggedIn} go={go} />
+    if (route === '/forgot-password') return <OtherPage title="Reset password" subtitle="Password recovery is configured as a provider-backed flow and should be connected to the production auth service." />
+    return null
   }
 
-  .nav,
-  .header-actions,
-  .stats-row,
-  .market-grid,
-  .plan-grid,
-  .calculator-form,
-  .security-grid {
-    grid-template-columns: 1fr;
+  if (route === '/dashboard' || route.startsWith('/dashboard/')) {
+    if (!isLoggedIn) {
+      return <AuthPage mode="login" setLoggedIn={setIsLoggedIn} go={go} />
+    }
+    return <DashboardLayout isAdmin={false} isLoggedIn={isLoggedIn} go={go} />
   }
 
-  .nav,
-  .header-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+  if (route === '/admin' || route.startsWith('/admin/')) {
+    if (!isLoggedIn) {
+      return <AuthPage mode="login" setLoggedIn={setIsLoggedIn} go={go} />
+    }
+    return <DashboardLayout isAdmin isLoggedIn={isLoggedIn} go={go} />
   }
 
-  .cta-row {
-    flex-direction: column;
-  }
-
-  .primary-button,
-  .secondary-button,
-  .ghost-button,
-  .nav button,
-  .link-button {
-    width: 100%;
-  }
-
-  .yield-row {
-    display: grid;
-    gap: 16px;
-  }
-
-  .hero-card,
-  .section-block {
-    padding: 20px 16px;
-  }
+  return (
+    <>
+      {publicPage() || authPage()}
+    </>
+  )
 }
